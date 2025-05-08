@@ -1,4 +1,4 @@
-package com.example.pt2025_30228_iordache_alexandru_assignment_3;
+package graphicalUserInterface;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
