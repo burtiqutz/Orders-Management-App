@@ -2,7 +2,6 @@ package dataAccess;
 
 import connection.ConnectionFactory;
 
-import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.*;
 import java.sql.Connection;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class AbstractDAO<T> {
+public abstract class AbstractDAO<T> {
     protected static final Logger LOGGER = Logger.getLogger(AbstractDAO.class.getName());
     private final Class<T> type;
 
@@ -56,11 +55,12 @@ public class AbstractDAO<T> {
     }
 
     private List<T> createObjects(ResultSet resultSet) {
-        List<T> list = new ArrayList<>();
         Constructor<?> ctor = Arrays.stream(type.getDeclaredConstructors())
                 .filter(c -> c.getParameterCount() == 0)
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("No no-arg constructor found"));
+
+        List<T> list = new ArrayList<>();
 
         try {
             while (resultSet.next()) {
@@ -70,9 +70,20 @@ public class AbstractDAO<T> {
                 Arrays.stream(type.getDeclaredFields()).forEach(field -> {
                     try {
                         String fieldName = field.getName();
-                        Object value = resultSet.getObject(fieldName);
                         PropertyDescriptor propDesc = new PropertyDescriptor(fieldName, type);
                         Method setter = propDesc.getWriteMethod();
+                        Class<?> paramType = setter.getParameterTypes()[0];
+
+                        Object value = switch (paramType.getSimpleName()) {
+                            case "int" -> resultSet.getInt(fieldName);
+                            case "double" -> resultSet.getDouble(fieldName);
+                            case "float" -> resultSet.getFloat(fieldName);
+                            case "long" -> resultSet.getLong(fieldName);
+                            case "boolean" -> resultSet.getBoolean(fieldName);
+                            case "String" -> resultSet.getString(fieldName);
+                            default -> resultSet.getObject(fieldName);
+                        };
+
                         setter.invoke(instance, value);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -84,8 +95,11 @@ public class AbstractDAO<T> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return list;
     }
+
+
 
 
     public T insert(T t) {
@@ -122,7 +136,7 @@ public class AbstractDAO<T> {
         return t;
     }
 
-    public T update(T t) {
+    public void update(T t) {
         Field[] fields = type.getDeclaredFields();
 
         String setClause = Arrays.stream(fields)
@@ -153,7 +167,6 @@ public class AbstractDAO<T> {
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, type.getName() + "DAO:update " + e.getMessage());
         }
-        return t;
     }
 
     public void delete(int id) {

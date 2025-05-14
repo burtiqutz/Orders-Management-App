@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="graphicalUserInterface.ProductController"
+      spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <HBox spacing="10">
+        <TextField fx:id="productNameField" promptText="Name"/>
+        <TextField fx:id="productStockField" promptText="Stock"/>
+        <TextField fx:id="productPriceField" promptText="Price"/>
+        <Button text="Add" onAction="#handleAddProduct"/>
+        <Button text="Update" onAction="#handleUpdateProduct"/>
+        <Button text="Delete" onAction="#handleDeleteProduct"/>
+    </HBox>
+
+    <TableView fx:id="productTable" prefHeight="400"/>
+</VBox>

@@ -16,8 +16,8 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        stage.setTitle("Order Management");
         stage.setScene(scene);
         stage.show();
     }
@@ -32,12 +32,7 @@ public class HelloApplication extends Application {
             con = ConnectionFactory.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT * FROM client");
-            while (rs.next()) {
-                System.out.println(rs.getString("id"));
-                System.out.println(rs.getString("name"));
-                System.out.println(rs.getString("address"));
-                System.out.println(rs.getString("email"));
-            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

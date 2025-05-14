@@ -32,4 +32,9 @@ public class Product {
 
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
+
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", name=" + name + ", stock=" + stock + ", price=" + price + "]";
+    }
 }
