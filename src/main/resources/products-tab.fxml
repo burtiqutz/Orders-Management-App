@@ -5,7 +5,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="graphicalUserInterface.ProductController"
+      fx:controller="GraphicalUserInterface.ProductController"
       spacing="10">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
@@ -18,6 +18,7 @@
         <Button text="Add" onAction="#handleAddProduct"/>
         <Button text="Update" onAction="#handleUpdateProduct"/>
         <Button text="Delete" onAction="#handleDeleteProduct"/>
+        <Button text="Refresh" onAction="#handleRefreshProduct"/>
     </HBox>
 
     <TableView fx:id="productTable" prefHeight="400"/>

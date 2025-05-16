@@ -5,7 +5,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="graphicalUserInterface.MainController"
+            fx:controller="GraphicalUserInterface.MainController"
             prefHeight="720" prefWidth="1280">
 
     <TabPane fx:id="mainTabPane" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
