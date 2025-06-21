@@ -15,7 +15,7 @@ Java desktop application for managing client orders in a warehouse using a MySQL
 - Java Streams and Lambdas for data processing
 - JavaDoc comments and generated docs
 - Layered architecture: 
-  - `model`, `businessLayer`, `dataAccessLayer`, `presentation`
+  - `Model`, `BusinessLogic`, `DataAccess`, `GraphicalUserInterface`, `Util`, `Connection`
 
 ## Data Persistence
 - SQL dump file provided to create and populate tables
